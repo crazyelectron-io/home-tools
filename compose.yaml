@@ -62,6 +62,7 @@ services:
     image: ixsystems/truecommand:latest
     container_name: truecommand
     restart: unless-stopped
+    env_file: .env
     volumes:
       - /mnt/data/appdata/truecommand:/data:rw
     # ports:
