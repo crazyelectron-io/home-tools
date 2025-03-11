@@ -57,6 +57,30 @@ services:
     security_opt:
       - no-new-privileges:true
 
+  # --- TrueCommand - TrueCommand is a single pane of glass management system for FreeNAS and TrueNAS
+  truecommand:
+    image: ixsystems/truecommand:latest
+    container_name: truecommand
+    restart: unless-stopped
+    volumes:
+      - /mnt/data/appdata/truecommand:/data:rw
+    # ports:
+    #   - 8880:80
+      # - 8843:443
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.truecommand.entrypoints=http"
+      - "traefik.http.routers.truecommand.rule=Host(`${TRUECOMMAND_DOMAIN}`)"
+      - "traefik.http.middlewares.truecommand-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.truecommand.middlewares=truecommand-https-redirect"
+      - "traefik.http.routers.truecommand-secure.entrypoints=https"
+      - "traefik.http.routers.truecommand-secure.rule=Host(`${TRUECOMMAND_DOMAIN}`)"
+      - "traefik.http.routers.truecommand-secure.tls=true"
+      - "traefik.http.routers.truecommand.service=truecommand"
+      - "traefik.http.services.truecommand.loadbalancer.server.port=80"
+    networks:
+      - frontend
+
 networks:
   frontend:
     external: true
