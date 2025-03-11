@@ -1,0 +1,7 @@
+creation_rules:
+  - encrypted_regex: '^(api_key|nzb_key|host_whitelist|password|username|rpc-password)$'
+    path_regex: 'config/.*\.sops\.ini$'
+    age: >-
+      age109fzapgarv59gpyu5tgmwgn7j3hwmfs0dhrz3lrqvjy046jxafnse30kvj
+  - age: >-
+      age109fzapgarv59gpyu5tgmwgn7j3hwmfs0dhrz3lrqvjy046jxafnse30kvj
